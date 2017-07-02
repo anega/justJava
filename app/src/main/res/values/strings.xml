@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Just Java</string>
+    <string name="toppings_title">Toppings</string>
+    <string name="whipped_cream">Whipped Cream</string>
     <string name="quantity_title">Quantity</string>
     <string name="increase_quantity">+</string>
     <string name="quantity_count">2</string>
