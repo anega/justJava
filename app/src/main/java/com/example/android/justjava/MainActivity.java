@@ -5,6 +5,8 @@
 package com.example.android.justjava;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -70,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         int price = calculatePrice(hasWhippedCream, hasChocolate);
         String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, userName);
-        displayMessage(priceMessage);
+        String subjectMessage = "JustJava order for " + userName;
+        composeEmail(subjectMessage, priceMessage);
     }
 
     /**
@@ -94,10 +97,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Creates summary for client order
      *
-     * @param price total price or clients order
+     * @param price           total price or clients order
      * @param hasWhippedCream is whipped cream added
-     * @param hasChocolate is chocolate added
-     * @param userName entered username
+     * @param hasChocolate    is chocolate added
+     * @param userName        entered username
      * @return string with order summary
      */
     private String createOrderSummary(int price, boolean hasWhippedCream, boolean hasChocolate, String userName) {
@@ -119,10 +122,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method displays the given text on the screen.
+     * This method sends an intent to mail app with the given info.
      */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
+    public void composeEmail(String subject, String message) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }
