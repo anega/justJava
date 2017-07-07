@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         int price = calculatePrice(hasWhippedCream, hasChocolate);
         String priceMessage = createOrderSummary(price, hasWhippedCream, hasChocolate, userName);
-        String subjectMessage = "JustJava order for " + userName;
+        String subjectMessage = getString(R.string.order_summary_email_subject, userName);
         composeEmail(subjectMessage, priceMessage);
     }
 
@@ -104,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
      * @return string with order summary
      */
     private String createOrderSummary(int price, boolean hasWhippedCream, boolean hasChocolate, String userName) {
-        String summary = "Name: " + userName + "\n";
-        summary += "Add whipped cream? " + hasWhippedCream + "\n";
-        summary += "Add chocolate? " + hasChocolate + "\n";
-        summary += "Quantity: " + quantity + "\n";
-        summary += "Total: " + price + "\n";
-        summary += "Thank you!";
+        String summary = getString(R.string.order_summary_name, userName) + "\n";
+        summary += getString(R.string.order_summary_whipped_cream, hasWhippedCream) + "\n";
+        summary += getString(R.string.order_summary_chocolate, hasChocolate) + "\n";
+        summary += getString(R.string.order_summary_quantity, quantity) + "\n";
+        summary += getString(R.string.order_summary_price, price) + "\n";
+        summary += getString(R.string.thank_you);
         return summary;
     }
 
